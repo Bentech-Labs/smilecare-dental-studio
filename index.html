@@ -1,52 +1,100 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Friendly, modern dental care for you and your family. Explore treatments and request an appointment.">
-  <title>SmileCare Dental Studio | Healthy Teeth, Brighter Smile</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="SmileCare Dental Studio clinic management dashboard">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>SmileCare | Clinic Management</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="site-header">
-  <a class="brand" href="index.html" aria-label="SmileCare home"><span class="brand-mark">✧</span><span><b>SmileCare</b><small>Dental Studio</small></span></a>
-  <nav class="header-actions"><a class="phone-link" href="tel:+910000000000">☎ <span>+91 XXXXX XXXXX</span></a><a class="button button-small" href="appointment.html">Book appointment <span>→</span></a></nav>
-</header>
-<main>
-  <section class="hero container">
-    <div class="hero-copy">
-      <span class="eyebrow">MULTISPECIALITY DENTAL CARE</span>
-      <h1>Healthy Teeth<br><span>Brighter Smile.</span></h1>
-      <p>Complete, comfortable and modern dental care for you and your family.</p>
-      <div class="hero-actions"><a class="button" href="appointment.html">▦ &nbsp;Book an appointment <span>→</span></a><a class="button button-outline" href="#services">Explore services</a></div>
-      <div class="trust-points"><span>♡ &nbsp;Safe &amp; hygienic</span><span>✧ &nbsp;Experienced dentists</span><span>♧ &nbsp;Family friendly</span></div>
-    </div>
-    <div class="hero-visual"><img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?auto=format&fit=crop&w=1200&q=85" alt="Dentist caring for a patient"></div>
-  </section>
-
-  <section class="section container" id="services">
-    <div class="section-heading"><span class="eyebrow">OUR SERVICES</span><h2>Complete <span>Dental Care</span></h2><p>Thoughtful care for every stage of your smile.</p></div>
-    <div class="service-grid">
-      <a class="service-card" href="appointment.html?service=Teeth%20Cleaning"><span class="service-icon">✧</span><b>Teeth Cleaning</b><small>Routine cleaning and preventive care</small></a>
-      <a class="service-card" href="appointment.html?service=Root%20Canal"><span class="service-icon">◈</span><b>Root Canal Treatment</b><small>Care for damaged or infected teeth</small></a>
-      <a class="service-card" href="appointment.html?service=Dental%20Implants"><span class="service-icon">♙</span><b>Dental Implants</b><small>Options for replacing missing teeth</small></a>
-      <a class="service-card" href="appointment.html?service=Braces%20%26%20Aligners"><span class="service-icon">⌁</span><b>Braces &amp; Aligners</b><small>Orthodontic treatment options</small></a>
-      <a class="service-card" href="appointment.html?service=Teeth%20Whitening"><span class="service-icon">✦</span><b>Teeth Whitening</b><small>Discuss whitening options</small></a>
-      <a class="service-card" href="appointment.html?service=Tooth%20Extraction"><span class="service-icon">◇</span><b>Tooth Extraction</b><small>Assessment and extraction care</small></a>
-      <a class="service-card" href="appointment.html?service=Crowns%20%26%20Bridges"><span class="service-icon">♧</span><b>Crowns &amp; Bridges</b><small>Restorative dental solutions</small></a>
-      <a class="service-card" href="appointment.html?service=Pediatric%20Dentistry"><span class="service-icon">☺</span><b>Pediatric Dentistry</b><small>Dental care for children</small></a>
+  <section id="login-screen" class="login-wrap">
+    <div class="login-card">
+      <div class="brand-mark">✧</div>
+      <p class="eyebrow">SMILECARE DENTAL STUDIO</p>
+      <h1>Clinic management,<br><span>made simpler.</span></h1>
+      <p class="muted">Sign in to your clinic workspace.</p>
+      <form id="login-form">
+        <label>Clinic email<input id="login-email" type="email" autocomplete="username" required placeholder="clinic@example.com"></label>
+        <label>Password<input id="login-password" type="password" autocomplete="current-password" required placeholder="Your password"></label>
+        <button class="primary full" type="submit">Sign in</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+      <small class="muted">Use the shared login provided by your clinic administrator.</small>
     </div>
   </section>
 
-  <section class="booking-strip container"><div class="calendar-art">▦<i>✓</i></div><div><h2>Book your appointment</h2><p>Choose a convenient date and time for your dental visit.</p></div><a class="button button-light" href="appointment.html">Book now <span>→</span></a></section>
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark small">✧</span><span><b>SmileCare</b><small>Dental Studio</small></span></a>
+      <div class="clinic-label">CLINIC WORKSPACE</div>
+      <nav id="nav">
+        <button class="nav-link active" data-view="overview">▦ <span>Overview</span></button>
+        <button class="nav-link" data-view="appointments">▣ <span>Appointments</span></button>
+        <button class="nav-link" data-view="patients">♙ <span>Patients</span></button>
+        <button class="nav-link" data-view="reviews">☆ <span>Reviews</span></button>
+        <button class="nav-link" data-view="reports">▤ <span>Reports</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="staff-chip"><div class="avatar" id="avatar">S</div><div><b id="staff-name">Clinic account</b><small id="staff-email">Signed in</small></div></div>
+        <button id="signout" class="signout">↪ Sign out</button>
+      </div>
+    </aside>
 
-  <section class="section container why-section"><div><span class="eyebrow">THE SMILECARE DIFFERENCE</span><h2>Care that puts<br><span>you first.</span></h2></div><div class="why-grid"><article><b>01</b><h3>Patient-first care</h3><p>Clear explanations and a welcoming experience at every visit.</p></article><article><b>02</b><h3>Hygiene focused</h3><p>Careful attention to cleanliness and patient comfort.</p></article><article><b>03</b><h3>Care for families</h3><p>Dental services for a range of ages and needs.</p></article></div></section>
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow">CLINIC WORKSPACE</p><h1 id="page-title">Overview</h1></div>
+        <div class="top-actions"><span class="today" id="today"></span><button id="install-app" class="secondary hidden" type="button">＋ Install app</button><button id="refresh" class="secondary">↻ Refresh data</button></div>
+      </header>
+      <div id="notice" class="notice hidden"></div>
 
-  <section class="reviews-band"><div class="container reviews-inner"><div><span class="eyebrow">PATIENT FEEDBACK</span><h2>Every smile has<br>a story.</h2><p>Read patient experiences or share feedback about your visit.</p><a class="text-link" href="reviews.html">Share your experience →</a></div><div class="quote-card"><div class="stars">★★★★★</div><blockquote>“Add a genuine patient testimonial here after receiving permission to publish it.”</blockquote><small>Patient testimonial placeholder</small></div></div></section>
-  <section class="final-cta container"><div><span class="eyebrow">YOUR NEXT STEP</span><h2>Ready for a healthier,<br>brighter smile?</h2></div><a class="button" href="appointment.html">Book an appointment →</a></section>
-</main>
-<footer class="site-footer"><a class="brand brand-light" href="index.html"><span class="brand-mark">✧</span><span><b>SmileCare</b><small>Dental Studio</small></span></a><p>Clinic address to be added · Update phone and opening hours before launch.</p><div><a href="appointment.html">Appointment</a><a href="reviews.html">Reviews</a></div><small>© <span data-year></span> SmileCare Dental Studio. All rights reserved.</small></footer>
-<script src="config.js"></script><script src="script.js"></script>
-</body></html>
+      <section class="view" id="view-overview">
+        <div class="welcome"><div><h2>Good day 👋</h2><p>Here is what's happening at your clinic.</p></div><span class="live-dot">● Connected dashboard</span></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon blue">▣</span><p>Total appointments</p><strong id="stat-appointments">—</strong><small>All recorded bookings</small></article>
+          <article class="stat-card"><span class="stat-icon violet">♙</span><p>Patients</p><strong id="stat-patients">—</strong><small>Unique patient records</small></article>
+          <article class="stat-card"><span class="stat-icon amber">☆</span><p>Reviews received</p><strong id="stat-reviews">—</strong><small>Feedback submissions</small></article>
+          <article class="stat-card"><span class="stat-icon green">★</span><p>Average rating</p><strong id="stat-rating">—</strong><small>Out of 5 stars</small></article>
+        </div>
+        <div class="two-col">
+          <section class="panel"><div class="panel-head"><div><h3>Recent appointments</h3><p>Latest booking activity</p></div><button class="text-button" data-goto="appointments">View all →</button></div><div id="recent-appointments" class="table-wrap"></div></section>
+          <section class="panel"><div class="panel-head"><div><h3>Recent feedback</h3><p>Latest patient reviews</p></div><button class="text-button" data-goto="reviews">View all →</button></div><div id="recent-reviews" class="review-list"></div></section>
+        </div>
+      </section>
+
+      <section class="view hidden" id="view-appointments">
+        <div class="toolbar"><input id="appointment-search" placeholder="Search name, phone or booking ID"><select id="appointment-status"><option value="">All statuses</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option><option>Unavailable</option></select></div>
+        <section class="panel"><div class="panel-head"><div><h3>Appointments</h3><p>Review requests and update booking status</p></div></div><div id="appointments-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-patients">
+        <div class="toolbar"><input id="patient-search" placeholder="Search patient name, phone or email"></div>
+        <section class="panel"><div class="panel-head"><div><h3>Patients</h3><p>Patient details from appointment records</p></div></div><div id="patients-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-reviews">
+        <div class="toolbar"><input id="review-search" placeholder="Search feedback or patient name"><select id="rating-filter"><option value="">All ratings</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+        <section class="panel"><div class="panel-head"><div><h3>Patient reviews</h3><p>Ratings, feedback and suggestions</p></div></div><div id="reviews-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-reports">
+        <div class="stats-grid report-stats">
+          <article class="stat-card"><p>Appointments</p><strong id="report-appointments">—</strong></article>
+          <article class="stat-card"><p>Confirmed</p><strong id="report-confirmed">—</strong></article>
+          <article class="stat-card"><p>Reviews</p><strong id="report-reviews">—</strong></article>
+          <article class="stat-card"><p>Average rating</p><strong id="report-rating">—</strong></article>
+        </div>
+        <section class="panel"><div class="panel-head"><div><h3>Reporting</h3><p>Live summary based on the records returned by n8n.</p></div></div><p class="muted">Daily and weekly email reports continue to be delivered by your existing n8n schedules. This screen shows the current totals returned by the dashboard API.</p></section>
+      </section>
+      <footer>SmileCare Dental Studio · Clinic Management System</footer>
+    </main>
+  </div>
+  <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));</script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
