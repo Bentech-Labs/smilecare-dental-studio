@@ -1,1 +1,100 @@
-SmileCare Dashboard
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f8fc">
+  <meta name="description" content="SmileCare Dental Studio clinic management dashboard">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>SmileCare | Clinic Management</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section id="login-screen" class="login-wrap">
+    <div class="login-card">
+      <div class="brand-mark">✧</div>
+      <p class="eyebrow">SMILECARE DENTAL STUDIO</p>
+      <h1>Clinic management,<br><span>made simpler.</span></h1>
+      <p class="muted">Sign in to your clinic workspace.</p>
+      <form id="login-form">
+        <label>Clinic email<input id="login-email" type="email" autocomplete="username" required placeholder="clinic@example.com"></label>
+        <label>Password<input id="login-password" type="password" autocomplete="current-password" required placeholder="Your password"></label>
+        <button class="primary full" type="submit">Sign in</button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+      <small class="muted">Use the shared login provided by your clinic administrator.</small>
+    </div>
+  </section>
+
+  <div id="app" class="app-shell hidden">
+    <aside class="sidebar">
+      <a class="brand" href="#"><span class="brand-mark small">✧</span><span><b>SmileCare</b><small>Dental Studio</small></span></a>
+      <div class="clinic-label">CLINIC WORKSPACE</div>
+      <nav id="nav">
+        <button class="nav-link active" data-view="overview">▦ <span>Overview</span></button>
+        <button class="nav-link" data-view="appointments">▣ <span>Appointments</span></button>
+        <button class="nav-link" data-view="patients">♙ <span>Patients</span></button>
+        <button class="nav-link" data-view="reviews">☆ <span>Reviews</span></button>
+        <button class="nav-link" data-view="reports">▤ <span>Reports</span></button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="staff-chip"><div class="avatar" id="avatar">S</div><div><b id="staff-name">Clinic account</b><small id="staff-email">Signed in</small></div></div>
+        <button id="signout" class="signout">↪ Sign out</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div><p class="eyebrow">CLINIC WORKSPACE</p><h1 id="page-title">Overview</h1></div>
+        <div class="top-actions"><span class="today" id="today"></span><button id="install-app" class="secondary hidden" type="button">＋ Install app</button><button id="refresh" class="secondary">↻ Refresh data</button></div>
+      </header>
+      <div id="notice" class="notice hidden"></div>
+
+      <section class="view" id="view-overview">
+        <div class="welcome"><div><h2>Good day 👋</h2><p>Here is what's happening at your clinic.</p></div><span class="live-dot">● Connected dashboard</span></div>
+        <div class="stats-grid">
+          <article class="stat-card"><span class="stat-icon blue">▣</span><p>Total appointments</p><strong id="stat-appointments">—</strong><small>All recorded bookings</small></article>
+          <article class="stat-card"><span class="stat-icon violet">♙</span><p>Patients</p><strong id="stat-patients">—</strong><small>Unique patient records</small></article>
+          <article class="stat-card"><span class="stat-icon amber">☆</span><p>Reviews received</p><strong id="stat-reviews">—</strong><small>Feedback submissions</small></article>
+          <article class="stat-card"><span class="stat-icon green">★</span><p>Average rating</p><strong id="stat-rating">—</strong><small>Out of 5 stars</small></article>
+        </div>
+        <div class="two-col">
+          <section class="panel"><div class="panel-head"><div><h3>Recent appointments</h3><p>Latest booking activity</p></div><button class="text-button" data-goto="appointments">View all →</button></div><div id="recent-appointments" class="table-wrap"></div></section>
+          <section class="panel"><div class="panel-head"><div><h3>Recent feedback</h3><p>Latest patient reviews</p></div><button class="text-button" data-goto="reviews">View all →</button></div><div id="recent-reviews" class="review-list"></div></section>
+        </div>
+      </section>
+
+      <section class="view hidden" id="view-appointments">
+        <div class="toolbar"><input id="appointment-search" placeholder="Search name, phone or booking ID"><select id="appointment-status"><option value="">All statuses</option><option>Confirmed</option><option>Pending</option><option>Cancelled</option><option>Unavailable</option></select></div>
+        <section class="panel"><div class="panel-head"><div><h3>Appointments</h3><p>Review requests and update booking status</p></div></div><div id="appointments-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-patients">
+        <div class="toolbar"><input id="patient-search" placeholder="Search patient name, phone or email"></div>
+        <section class="panel"><div class="panel-head"><div><h3>Patients</h3><p>Patient details from appointment records</p></div></div><div id="patients-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-reviews">
+        <div class="toolbar"><input id="review-search" placeholder="Search feedback or patient name"><select id="rating-filter"><option value="">All ratings</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+        <section class="panel"><div class="panel-head"><div><h3>Patient reviews</h3><p>Ratings, feedback and suggestions</p></div></div><div id="reviews-table" class="table-wrap"></div></section>
+      </section>
+
+      <section class="view hidden" id="view-reports">
+        <div class="stats-grid report-stats">
+          <article class="stat-card"><p>Appointments</p><strong id="report-appointments">—</strong></article>
+          <article class="stat-card"><p>Confirmed</p><strong id="report-confirmed">—</strong></article>
+          <article class="stat-card"><p>Reviews</p><strong id="report-reviews">—</strong></article>
+          <article class="stat-card"><p>Average rating</p><strong id="report-rating">—</strong></article>
+        </div>
+        <section class="panel"><div class="panel-head"><div><h3>Reporting</h3><p>Live summary based on the records returned by n8n.</p></div></div><p class="muted">Daily and weekly email reports continue to be delivered by your existing n8n schedules. This screen shows the current totals returned by the dashboard API.</p></section>
+      </section>
+      <footer>SmileCare Dental Studio · Clinic Management System</footer>
+    </main>
+  </div>
+  <script>if ("serviceWorker" in navigator) window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(() => {}));</script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

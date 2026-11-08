@@ -1,0 +1,13 @@
+{
+  "name": "SmileCare Clinic Management",
+  "short_name": "SmileCare",
+  "description": "Clinic management dashboard for SmileCare Dental Studio",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f8fc",
+  "theme_color": "#f7f8fc",
+  "icons": [
+    {"src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable"}
+  ]
+}
